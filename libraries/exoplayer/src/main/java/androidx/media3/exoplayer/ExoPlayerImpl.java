@@ -115,7 +115,7 @@ import androidx.media3.exoplayer.video.VideoDecoderOutputBufferRenderer;
 import androidx.media3.exoplayer.video.VideoFrameMetadataListener;
 import androidx.media3.exoplayer.video.VideoRendererEventListener;
 import androidx.media3.exoplayer.video.spherical.CameraMotionListener;
-import androidx.media3.exoplayer.video.spherical.SphericalGLSurfaceView;
+import androidx.media3.exoplayer.video.spherical.NtvSphericalGLSurfaceView;
 import com.google.common.collect.ImmutableList;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.util.ArrayList;
@@ -200,7 +200,7 @@ import java.util.concurrent.TimeoutException;
   @Nullable private Object videoOutput;
   @Nullable private Surface ownedSurface;
   @Nullable private SurfaceHolder surfaceHolder;
-  @Nullable private SphericalGLSurfaceView sphericalGLSurfaceView;
+  @Nullable private NtvSphericalGLSurfaceView sphericalGLSurfaceView;
   private boolean surfaceHolderSurfaceIsVideoOutput;
   @Nullable private TextureView textureView;
   private @C.VideoScalingMode int videoScalingMode;
@@ -1382,9 +1382,9 @@ import java.util.concurrent.TimeoutException;
       removeSurfaceCallbacks();
       setVideoOutputInternal(surfaceView);
       setNonVideoOutputSurfaceHolderInternal(surfaceView.getHolder());
-    } else if (surfaceView instanceof SphericalGLSurfaceView) {
+    } else if (surfaceView instanceof NtvSphericalGLSurfaceView) {
       removeSurfaceCallbacks();
-      sphericalGLSurfaceView = (SphericalGLSurfaceView) surfaceView;
+      sphericalGLSurfaceView = (NtvSphericalGLSurfaceView) surfaceView;
       createMessageInternal(frameMetadataListener)
           .setType(FrameMetadataListener.MSG_SET_SPHERICAL_SURFACE_VIEW)
           .setPayload(sphericalGLSurfaceView)
@@ -2986,7 +2986,7 @@ import java.util.concurrent.TimeoutException;
           MetadataOutput,
           SurfaceHolder.Callback,
           TextureView.SurfaceTextureListener,
-          SphericalGLSurfaceView.VideoSurfaceListener,
+          NtvSphericalGLSurfaceView.VideoSurfaceListener,
           AudioFocusManager.PlayerControl,
           AudioBecomingNoisyManager.EventListener,
           StreamVolumeManager.Listener,
@@ -3297,7 +3297,7 @@ import java.util.concurrent.TimeoutException;
           cameraMotionListener = (CameraMotionListener) message;
           break;
         case MSG_SET_SPHERICAL_SURFACE_VIEW:
-          @Nullable SphericalGLSurfaceView surfaceView = (SphericalGLSurfaceView) message;
+          @Nullable NtvSphericalGLSurfaceView surfaceView = (NtvSphericalGLSurfaceView) message;
           if (surfaceView == null) {
             internalVideoFrameMetadataListener = null;
             internalCameraMotionListener = null;
